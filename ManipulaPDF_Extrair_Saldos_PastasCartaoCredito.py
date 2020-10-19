@@ -34,11 +34,20 @@ print('Saldo -->',saldo)
 saldosmes = os.listdir()                                                          # CRIA VARIAVEL PARA RECEBER TODOS ARQUIVOS DA PASTA, NESTA PASTA FICARAO OS EXTRATOS GERAIS
 saldosmes                                                                         # IMPRIME OS ARQUIVOS  
 
-soma = 0
-for saldo in saldosmes:
-  relatorio3 = pdfplumber.open(saldo)
-  pagina3 = relatorio3.pages[1]
-  texto3 = pagina3.extract_text()
-  val = float(texto3.split('\n')[15].split(':')[1].replace('.','').replace(',','.'))
-  soma =soma + val
-  print("Saldo:",saldo,val)
+# AUTOMATIZACAO PARA PERCORRER OS PFDS NA PASTA
+
+soma = 0                                                                              # CRIA A VARIAVEL SOMA PARA ARMAZENAR TOTAL
+saldo_lista = []                                                                      # CRIA LISTA PARA ARMAZENAR OS SALDOS SEPARADOS
+for saldo in saldosmes:                                                               # CRIA FOR PARA PERCORRER ARQUIVOS 
+  relatorio3 = pdfplumber.open(saldo)                                                 # CRIA RELATORIO3 PARA ABRIR O PDF NA ITERAÇÃO DO FOR
+  pagina3 = relatorio3.pages[1]                                                       # OAGINA3 RECEBE A PAGINA 1
+  texto3 = pagina3.extract_text()                                                     # VARIAVEL TEXTO3 RECEBE OS TEXTOS EXTRAIDOS NA VARIAVEL PAGINA 3
+  val = float(texto3.split('\n')[15].split(':')[1].replace('.','').replace(',','.'))  # INSTRUÇÃO PARA LOCALIZAR O SALDO
+  soma =soma + val                                                                    # VARIAVEL PARA SOMAR SALDOS DOS PDFS
+  saldo_lista.append(val)                                                             # ATUALIZA NA LISTA O VALOR DO SALDO NO FOR
+  print("Extrato:",saldo,"Valor:",val)                                                # IMPRIME QUAL O EXTRATO E VALOR NO FOR 
+print('-------------------------')                        
+print('Valor total somado:',soma)                                                     # IMRPIME O VALOR DA SOMA DOS EXTRATOS   
+
+print("Lista Saldo:",saldo_lista)                                                     # IMPRIME A LISTA
+
