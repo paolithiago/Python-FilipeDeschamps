@@ -1,0 +1,8 @@
+print('------------------Infor Colunas Linhas --------------------------------------')
+print('Numero de Linhas',df.shape[0])
+print('Numero de colunas',df.shape[1])
+print('------------------Infor Colunas Dataset --------------------------------------')
+print(df.head(4))
+print(df.tail(4))
+print('------------------Soma de valores --------------------------------------')
+print('Total de Valores:',df['Entradas'].sum())
